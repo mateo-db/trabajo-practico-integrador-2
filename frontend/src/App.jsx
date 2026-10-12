@@ -1,8 +1,11 @@
 import React from 'react'
+import { AppRouter } from './router/AppRouter'
+
 
 export const App = () => {
   return (
-    <div className="bg-gray-200 p-4 min-h-screen flex items-center justify-center">
-    </div>
+    <>
+      <AppRouter />
+    </>
   )
 }
