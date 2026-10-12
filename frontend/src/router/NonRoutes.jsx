@@ -1,27 +1,31 @@
-import { Navigate } from "react-router"
+import { useNavigate } from "react-router"
 import { useEffect } from 'react'
 
 export const NonRoute = () => { //componente evaluador que redirige a la página que corresponda según el estado de
 // sesión cuando se acceda a una URL inexistente.
+    const navigate = useNavigate() //usamos la instancia activa del hook useNavigate ya que necesitamos usarlo dentro de un evento, afuera del return
     useEffect(() => {
-        setTimeout(() => {
+        const timer = setTimeout(() => {
             const isLogged = localStorage.getItem('isLogged')
-            if (isLogged !== "true") {
-                <Navigate to="/login"/> // si el usuario no está logueado, no puede acceder a ruta privada home y es redirigido al login
+            if (!isLogged) {
+                navigate('/login') // si el usuario no está logueado, no puede acceder a ruta privada home y es redirigido al login
             } else { 
                 //si el usuario si está logueado, es redirigido a home sin posibilidad de acceder a rutas públicas como login y registro
-                <Navigate to="/home"/>
+                navigate('/home')
             }
         }, 10000);
+        return () => {
+            clearTimeout(timer) //limpiamos timer para que no hayan fugas de memoria y los temporizadores se pisen
+        }
     }, []) //array de dependencias vacío, para que el efecto (en este caso el timer) se ejecuta una única vez cuando el componente se monte
 
 
     return (
-        <div className="bg-red-400">
+        <div className="bg-red-400 flex flex-col items-center justify-center p-2 gap-8 min-h-screen">
             <h2 className="text-black font-bold">Lo sentimos, esa página no se encontró</h2>
-            <h3 className="text-black font-light font-stretch-50%">Será redirigido a una ruta correspondiente en 10 segundos...</h3>
-            <svg fill="#000000" height="800px" width="800px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
-                viewBox="0 0 60 60" xml:space="preserve">
+            <h3 className="text-black font-semibold font-stretch-50%">Será redirigido a una ruta correspondiente en 10 segundos...</h3>
+            <svg fill="#000000" className="w-50 h-50" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" 
+                viewBox="0 0 60 60" xmlSpace="preserve">
             <g>
                 <path d="M9,39h6v8c0,0.552,0.448,1,1,1s1-0.448,1-1v-8h3c0.552,0,1-0.448,1-1s-0.448-1-1-1h-3v-2c0-0.552-0.448-1-1-1s-1,0.448-1,1
                     v2h-5V27c0-0.552-0.448-1-1-1s-1,0.448-1,1v11C8,38.552,8.448,39,9,39z"/>

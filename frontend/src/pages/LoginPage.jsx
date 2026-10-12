@@ -27,7 +27,7 @@ export const LoginPage = () => {
 
         if (res.ok) { //si la respuesta del servidor fue buena (las credenciales son las correctas)
             setIsLoading(false) //seteamos carga en false (la petición terminó, se leyó la respuesta)
-            localStorage.setItem('isLogged', 'true') //seteamos en el localStorage del navegador clave isLogged con valor true
+            localStorage.setItem('isLogged', true) //seteamos en el localStorage del navegador clave isLogged con valor true
             navigate('/home') //redireccionamos a la home page
         } else {
             setIsLoading(false) //por bloque else (es decir, la respuesta volvió mal/la petición falló, de igual manera termina la petición y no se sigue cargando una espera) 

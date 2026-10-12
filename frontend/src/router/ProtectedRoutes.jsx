@@ -5,8 +5,8 @@ import { Navigate, Outlet } from "react-router" //importamos herramientas de rea
 export const ProtectedRoute = () => {
     const isLogged = localStorage.getItem('isLogged') //obtenemos valor de key en el localStorage
     
-    if (isLogged !== "true") { //si ese valor de isLogged NO es igual al string "true", se lo redirige hacia otro lugar
-        <Navigate to="/login"/>
+    if (!isLogged) { //si ese valor de isLogged NO es igual a true, se lo redirige hacia otro lugar
+        return <Navigate to="/login"/>
     } 
 
     return <Outlet /> //si el valor de isLogged es true (lo que significa que está logueado), se lo deja pasar al outlet
