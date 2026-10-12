@@ -6,8 +6,6 @@ import { Link } from 'react-router'
 export const LoginPage = () => {
     //instancia activa de useNavigate
     const navigate = useNavigate()
-    //estados a manejar para el renderizado según si está logueado exitosamente o no el user
-    const [isLogged, setIsLogged] = useState(false)
     //estados de carga
     const [isLoading, setIsLoading] = useState(false)
     //estados a manejar según las credenciales (si están bien o son incorrectas)
@@ -28,9 +26,8 @@ export const LoginPage = () => {
         })
 
         if (res.ok) { //si la respuesta del servidor fue buena (las credenciales son las correctas)
-            localStorage.setItem('isLogged', 'true') //seteamos en el localStorage del navegador clave isLogged con valor true
             setIsLoading(false) //seteamos carga en false (la petición terminó, se leyó la respuesta)
-            setIsLogged(true) //seteamos estado de logueado a true
+            localStorage.setItem('isLogged', 'true') //seteamos en el localStorage del navegador clave isLogged con valor true
             navigate('/home') //redireccionamos a la home page
         } else {
             setIsLoading(false) //por bloque else (es decir, la respuesta volvió mal/la petición falló, de igual manera termina la petición y no se sigue cargando una espera) 
