@@ -18,21 +18,27 @@ export const LoginPage = () => {
     
     //handler de login
     const handleLogging = async (e) => {
-        e.preventDefault()
-        setIsLoading(true)
-        await fetch('/api/auth/login', {
-            method: 'POST',
-            credentials: 'include'
-        })
-
-        if (res.ok) { //si la respuesta del servidor fue buena (las credenciales son las correctas)
-            setIsLoading(false) //seteamos carga en false (la petición terminó, se leyó la respuesta)
-            localStorage.setItem('isLogged', true) //seteamos en el localStorage del navegador clave isLogged con valor true
-            navigate('/home') //redireccionamos a la home page
-        } else {
-            setIsLoading(false) //por bloque else (es decir, la respuesta volvió mal/la petición falló, de igual manera termina la petición y no se sigue cargando una espera) 
-            setAreCredsBad(true) //seteamos estado de error a true pq falló la petición (las credenciales fueron incorrectas)
-            setTimeout(() => {setAreCredsBad(false)}, 3000) //seteamos un timer para desactivar mensaje de error indicando cantidad en milisegundos
+        try {
+            e.preventDefault()
+            setIsLoading(true)
+            const res = await fetch('http://localhost:3000/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json'},
+                    credentials: 'include',
+                    body: JSON.stringify(formValues)
+            })
+    
+            if (res.ok) { //si la respuesta del servidor fue buena (las credenciales son las correctas)
+                setIsLoading(false) //seteamos carga en false (la petición terminó, se leyó la respuesta)
+                localStorage.setItem('isLogged', true) //seteamos en el localStorage del navegador clave isLogged con valor true
+                navigate('/home') //redireccionamos a la home page
+            } else {
+                setIsLoading(false) //por bloque else (es decir, la respuesta volvió mal/la petición falló, de igual manera termina la petición y no se sigue cargando una espera) 
+                setAreCredsBad(true) //seteamos estado de error a true pq falló la petición (las credenciales fueron incorrectas)
+                setTimeout(() => {setAreCredsBad(false)}, 3000) //seteamos un timer para desactivar mensaje de error indicando cantidad en milisegundos
+            }        
+        } catch (error) {
+            console.error("Error de red o caida del servidor", {error})
         }
     }
 

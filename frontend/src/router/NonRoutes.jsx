@@ -3,9 +3,13 @@ import { useEffect } from 'react'
 
 export const NonRoute = () => { //componente evaluador que redirige a la página que corresponda según el estado de
 // sesión cuando se acceda a una URL inexistente.
-    const navigate = useNavigate() //usamos la instancia activa del hook useNavigate ya que necesitamos usarlo dentro de un evento, afuera del return
-    useEffect(() => {
-        const timer = setTimeout(() => {
+
+    const navigate = useNavigate() 
+    //usamos la instancia activa del hook useNavigate ya que necesitamos usarlo dentro de un evento, afuera del return
+    useEffect(() => { 
+        //usamos un useEffect para controlar el ciclo de vida del componente, que el temporizador se ejecute solo una vez al montarse el componente, y que por más veces que se re-renderice el componente no se ejecuten de nuevo más temporizadores
+
+        const timer = setTimeout(() => { //usamos un setTimeout para crear nuestro temporizador
             const isLogged = localStorage.getItem('isLogged')
             if (!isLogged) {
                 navigate('/login') // si el usuario no está logueado, no puede acceder a ruta privada home y es redirigido al login
@@ -13,7 +17,7 @@ export const NonRoute = () => { //componente evaluador que redirige a la página
                 //si el usuario si está logueado, es redirigido a home sin posibilidad de acceder a rutas públicas como login y registro
                 navigate('/home')
             }
-        }, 10000);
+        }, 10000); //luego de 10 segundos, se ejecutarán la lógica de arriba
         return () => {
             clearTimeout(timer) //limpiamos timer para que no hayan fugas de memoria y los temporizadores se pisen
         }

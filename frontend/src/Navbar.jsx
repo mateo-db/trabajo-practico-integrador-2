@@ -5,13 +5,17 @@ export const Navbar = () => {
     const navigate = useNavigate()
     
     const handleLogout = async () => {
-        await fetch('/apí/auth/logout', {
-            method: 'POST',
-            credentials: 'include'
-        })
-
-        localStorage.removeItem('isLogged') //removemos del localStorage la clave isLogged con valor true
-        navigate('/login')
+        try {
+            await fetch('http://localhost:3000/api/auth/logout', {
+                method: 'POST',
+                credentials: 'include'
+            })
+    
+            localStorage.removeItem('isLogged') //removemos del localStorage la clave isLogged con valor true
+            navigate('/login')  
+        } catch (error) {
+            error.console("Error de red o caida del servidor", {error})
+        }
     }
 
     return (

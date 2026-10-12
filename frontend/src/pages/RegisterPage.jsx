@@ -11,7 +11,6 @@ export const RegisterPage = () => {
         username: "",
         email: "",
         password: "",
-        role: "",
         first_name: "",
         last_name: "",
         biography: "",
@@ -27,25 +26,29 @@ export const RegisterPage = () => {
     //esta función handler SI es asíncrona a diferencia del useEffect, ya que no la maneja React, sino que el usuario la ejecuta al hacer click en botón submit
     const handleSubmit = async (e) => {
         //prevenimos comportamiento default de formularios
-        e.preventDefault()
-        setIsSubmitting(true) //seteamos estado de carga del envío del form a true
-        await fetch('/api/auth/register', {
-            method: 'POST',
-            credentials: 'include'
-        })
-        //obtenemos respuesta del servidor y chequeamos si "ok" vale true, en ese caso de éxito procedemos a limpiar el formulario y redireccionar a la pagina de login (con useNavigate)
-        if (res.ok) {
-            setIsSubmitting(false) //seteamos a false estado de isSubmitting (terminó de enviar los datos, bien o mal)
-            //limpiamos con nuestro handler del hook useForm
-            handleReset()
-            //redireccionamos al login con useNavigate de react-router
-            navigate('/login')
-        } else { //si res vino con errores ("ok" de res vale false)
-            setIsSubmitting(false) //seteamos a false estado de isSubmitting (terminó de enviar los datos bien, o mal)
-            const errorsRes = await res.json() //guardamos errores que trajo el backend, convertidos a json y esperados con await por el hecho de que es asíncrono el proceso
-            setErrorsBackend(errorsRes) //seteamos el estado de errorsBackend con la respuesta convertida a json del backend (que contendrá los errores)
-
-
+        try {
+            e.preventDefault()
+            setIsSubmitting(true) //seteamos estado de carga del envío del form a true
+            const res = await fetch('http://localhost:3000/api/auth/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json'},
+                credentials: 'include',
+                body: JSON.stringify(formValues)
+            })
+            //obtenemos respuesta del servidor y chequeamos si "ok" vale true, en ese caso de éxito procedemos a limpiar el formulario y redireccionar a la pagina de login (con useNavigate)
+            if (res.ok) {
+                setIsSubmitting(false) //seteamos a false estado de isSubmitting (terminó de enviar los datos, bien o mal)
+                //limpiamos con nuestro handler del hook useForm
+                handleReset()
+                //redireccionamos al login con useNavigate de react-router
+                navigate('/login')
+            } else { //si res vino con errores ("ok" de res vale false)
+                setIsSubmitting(false) //seteamos a false estado de isSubmitting (terminó de enviar los datos bien, o mal)
+                const errorsRes = await res.json() //guardamos errores que trajo el backend, convertidos a json y esperados con await por el hecho de que es asíncrono el proceso
+                setErrorsBackend(errorsRes) //seteamos el estado de errorsBackend con la respuesta convertida a json del backend (que contendrá los errores)
+            }
+        } catch (error) {
+            console.error("Error de red o caida del servidor", {error})
         }
     }
 
@@ -56,8 +59,8 @@ export const RegisterPage = () => {
     //nota: las className dentro de las etiquetas funcionan como CSS clásico con Tailwind, teniendo en cuenta flex/grid para moldear nuestro formulario
     <div>
         <h1>Registro</h1>
-        {errorsBackend && errorsBackend.map((err, index) => (
-            <p className="text-red-700 font-bold" key={index}>{err}</p>
+        {errorsBackend && errorsBackend.map((err) => (
+            <p className="text-red-700 font-bold" key={err.field}>{err}</p>
         ))}
         <form className="flex flex-col gap-4 mt-1" onSubmit={handleSubmit}>
             <input
@@ -77,18 +80,13 @@ export const RegisterPage = () => {
                 onChange={handleInputChange}
             />
             <input
-                type="text"
+                type="password"
                 className="border-2 p-1 rounded-xl"
                 placeholder="Contraseña"
                 name="password"
                 value={formValues.password}
                 onChange={handleInputChange}
             />
-            <select name="role" value={formValues.role} onChange={handleInputChange}>
-                <option value="">Rol</option>
-                <option value="user">User</option>
-                <option value="admin">Admin</option>
-            </select>
             <input
                 type="text"
                 className="border-2 p-1 rounded-xl"
