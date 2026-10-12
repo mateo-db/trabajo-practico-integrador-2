@@ -23,7 +23,7 @@ export const Navbar = () => {
             >
                 Cerrar sesión
             </button>
-            <Link to='/home'>Home</Link>
+            <Link to='/home' className='text-black font-semibold border bg-blue-200 hover:bg-amber-100 transition-colors duration-500 ease-in-out p-1'>Home</Link>
         </nav>
     )
 }

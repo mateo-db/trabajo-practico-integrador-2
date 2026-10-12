@@ -38,11 +38,11 @@ export const LoginPage = () => {
 
     return (
         <div>
-            <form className='flex flex-col gap-1 mt-3' onSubmit={handleLogging}>
+            <form className='flex flex-col gap-4 mt-1' onSubmit={handleLogging}>
                 <input 
                     type="email"
                     value={formValues.email}
-                    className="border"
+                    className="border-2 p-1 rounded-xl"
                     placeholder="Correo Electrónico"
                     name="email"
                     onChange={handleInputChange}
@@ -50,18 +50,18 @@ export const LoginPage = () => {
                 <input 
                     type="text"
                     value={formValues.password}
-                    className="border"
+                    className="border-2 p-1 rounded-xl"
                     placeholder="Contraseña"
                     name="password"
                     onChange={handleInputChange}
                 />
-                <button type="submit" className='text-blue-400 font-bold'>Iniciar Sesión</button>
+                <button type="submit" className="text-blue-500 font-bold border bg-blue-200 mb-5 hover:bg-cyan-200 transition-colors duration-500 ease-in-out">Iniciar Sesión</button>
                 {areCredsBad && <p className='text-red-400 font-extrabold'>Las credenciales son incorrectas</p>}
             </form>
-            <Link to="/register">No tenés cuenta? Registrate</Link>
+            <Link to="/register" className='text-black font-semibold border bg-blue-200 hover:bg-amber-100 transition-colors duration-500 ease-in-out p-1'>No tenés cuenta? Registrate</Link>
             {isLoading && (
                 <svg 
-                    className="animate-spin w-6 h-6 text-green-400"
+                    className="animate-spin w-6 h-6 text-green-400 mt-2"
                     viewBox="0 0 16 16" 
                     xmlns="http://www.w3.org/2000/svg" 
                     fill="none" 

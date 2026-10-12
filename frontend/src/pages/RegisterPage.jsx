@@ -30,7 +30,7 @@ export const RegisterPage = () => {
         e.preventDefault()
         setIsSubmitting(true) //seteamos estado de carga del envío del form a true
         await fetch('/api/auth/register', {
-            method: POST,
+            method: 'POST',
             credentials: 'include'
         })
         //obtenemos respuesta del servidor y chequeamos si "ok" vale true, en ese caso de éxito procedemos a limpiar el formulario y redireccionar a la pagina de login (con useNavigate)
@@ -59,10 +59,10 @@ export const RegisterPage = () => {
         {errorsBackend && errorsBackend.map((err, index) => (
             <p className="text-red-700 font-bold" key={index}>{err}</p>
         ))}
-        <form className="flex flex-col gap-1 mt-3" onSubmit={handleSubmit}>
+        <form className="flex flex-col gap-4 mt-1" onSubmit={handleSubmit}>
             <input
                 type="text"
-                className="border"
+                className="border-2 p-1 rounded-xl"
                 placeholder="Nombre de Usuario"
                 name="username"
                 value={formValues.username}
@@ -70,7 +70,7 @@ export const RegisterPage = () => {
             />
             <input
                 type="email"
-                className="border"
+                className="border-2 p-1 rounded-xl"
                 placeholder="Correo electrónico"
                 name="email"
                 value={formValues.email}
@@ -78,7 +78,7 @@ export const RegisterPage = () => {
             />
             <input
                 type="text"
-                className="border"
+                className="border-2 p-1 rounded-xl"
                 placeholder="Contraseña"
                 name="password"
                 value={formValues.password}
@@ -91,7 +91,7 @@ export const RegisterPage = () => {
             </select>
             <input
                 type="text"
-                className="border"
+                className="border-2 p-1 rounded-xl"
                 placeholder="Nombre"
                 name="first_name"
                 value={formValues.first_name}
@@ -99,7 +99,7 @@ export const RegisterPage = () => {
             />
             <input
                 type="text"
-                className="border"
+                className="border-2 p-1 rounded-xl"
                 placeholder="Apellido"
                 name="last_name"
                 value={formValues.last_name}
@@ -107,7 +107,7 @@ export const RegisterPage = () => {
             />
             <input
                 type="text"
-                className="border"
+                className="border-2 p-1 rounded-xl"
                 placeholder="Biografía"
                 name="biography"
                 value={formValues.biography}
@@ -115,7 +115,7 @@ export const RegisterPage = () => {
             />
             <input
                 type="text"
-                className="border"
+                className="border-2 p-1 rounded-xl"
                 placeholder="Avatar (URL)"
                 name="avatar_url"
                 value={formValues.avatar_url}
@@ -123,7 +123,7 @@ export const RegisterPage = () => {
             />
             <input 
                 type="date"
-                className="border" 
+                className="border-2 p-1 rounded-xl"
                 min="1950-01-01" 
                 max="2013-12-31" 
                 name="birth_date" 
@@ -131,17 +131,17 @@ export const RegisterPage = () => {
                 onChange={handleInputChange}
             />
             <button 
-                className="text-blue-500 font-bold" 
+                className="text-blue-500 font-bold border bg-blue-200 mb-5 hover:bg-cyan-200 transition-colors duration-500 ease-in-out" 
                 type="submit" 
                 disabled={isSubmitting}
             >
                 {isSubmitting ? "Registrando..." : "Registrarse"}
             </button>
         </form>
-        <Link to="/login">Tenés cuenta? Inicia sesión</Link>
+        <Link to="/login" className="text-black font-semibold border bg-blue-200 hover:bg-amber-100 transition-colors duration-500 ease-in-out p-1">Tenés cuenta? Inicia sesión</Link>
         {isSubmitting && (
             <svg 
-                className="animate-spin w-6 h-6 text-green-400"
+                className="animate-spin w-6 h-6 text-green-400 mt-2"
                 viewBox="0 0 16 16" 
                 xmlns="http://www.w3.org/2000/svg" 
                 fill="none" 

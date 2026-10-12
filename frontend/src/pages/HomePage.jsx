@@ -32,7 +32,7 @@ export const HomePage = () => {
     //a su vez esta función callback tendrá como parametros nombre de variable génerica article (que representará a cada elemento del arreglo, que serán objetos) y por cada elemento articulo accederemos a sus propiedades dinámicamente mediante puntos, ya que cada árticulo es un objeto
     //en la etiqueta li ponemos SI o SI atributo clave key que tendrá como valor el id de cada árticulo, esto es necesario para que React identifique cada lista correctamente
     return (
-    <div>
+    <div className="bg-gray-200 p-4 min-h-screen flex items-center justify-center">
             <h1>Home</h1>
             <ul>
                 {data.map((article) => (
