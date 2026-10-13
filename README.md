@@ -11,6 +11,7 @@
   * `BrowserRouter` / `Routes` / `Route` para definición de rutas, paths y elementos a renderizar.
   * `Navigate` / `Outlet` para redireccionamiento automático y enrutamiento protegido mediante custom components.
   * `Link` para enlaces a páginas.
+****
 - Framework **Tailwind CSS** mediante el uso de clases utilitarias
 - Herramienta de desarrollo y empaquetación **Vite** para entorno del proyecto 
 - Aplicación de programación modular siguiendo el éstandar **ES Modules**
