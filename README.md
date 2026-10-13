@@ -33,3 +33,7 @@
     * `PORT=` Puerto en el que corre el servidor backend
 ### 3er Paso: Levantar servidores
 - En cada terminal, ejecutar scripts `npm run dev` y acceder al link proporcionado por Vite en la terminal del front
+
+## <ins>Backend Integrado
+- Repositorio del backend (TP Integrador 1) contra el que se construyó en el front de este TP Integrador 2
+- [Link]: https://github.com/mateo-db/trabajo-practico-integrador-1.git
