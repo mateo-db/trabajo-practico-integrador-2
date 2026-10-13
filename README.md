@@ -36,4 +36,4 @@
 
 ## <ins>Backend Integrado
 - Repositorio del backend (TP Integrador 1) contra el que se construyó en el front de este TP Integrador 2
-- [Link]: https://github.com/mateo-db/trabajo-practico-integrador-1.git
+- Link: <https://github.com/mateo-db/trabajo-practico-integrador-1.git>
